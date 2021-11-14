@@ -14,7 +14,27 @@
       type="text/css"
       href="./assets/stylesheets/style.css"
     />
+    <script defer src="./app.js"></script>
     <title>Tic-Tac-Toe</title>
   </head>
-  <body></body>
+  <body>
+    <main class="main">
+      <h1 class="main__header">Tic-Tac-Toe</h1>
+      <section class="game">
+        <p class="game__label"></p>
+        <button class="game__btn game__btn--reset">RESET</button>
+        <div class="board">
+          <button class="board__btn" data-row="0" data-col="0"></button>
+          <button class="board__btn" data-row="0" data-col="1"></button>
+          <button class="board__btn" data-row="0" data-col="2"></button>
+          <button class="board__btn" data-row="1" data-col="0"></button>
+          <button class="board__btn" data-row="1" data-col="1"></button>
+          <button class="board__btn" data-row="1" data-col="2"></button>
+          <button class="board__btn" data-row="2" data-col="0"></button>
+          <button class="board__btn" data-row="2" data-col="1"></button>
+          <button class="board__btn" data-row="2" data-col="2"></button>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
