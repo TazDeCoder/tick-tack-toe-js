@@ -22,10 +22,6 @@ const game = {
   updateBoard(row, col) {
     this.board[row][col] = currMarker;
   },
-  winConditions: {
-    xRow: new Array(3).fill("X"),
-    oRow: new Array(3).fill("O"),
-  },
 };
 
 (() => init())();
@@ -35,36 +31,50 @@ function init() {
   currMarker = "X";
   game.flag = true;
   game.board = [
-    new Array(3).fill(""),
-    new Array(3).fill(""),
-    new Array(3).fill(""),
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
   ];
   // Clean-up Ui
   btnsBoard.forEach((btn) => {
     btn.textContent = "";
     btn.classList.remove("board__btn--active");
   });
-  labelGame.textContent = "";
+  labelGame.textContent = `Current marker is: ${currMarker}`;
 }
 
 ////////////////////////////////////////////////
 ////// Game logic
 ///////////////////////////////////////////////
 
-function checkWinner() {
+function isGameWinner() {
   let isWinner;
-  const [xRow, oRow] = Object.values(game.winConditions);
   const board = Object.values(game.board);
-  if (currMarker === "X") {
-    isWinner = board.some((row) => row.toString() === xRow.toString());
-  } else {
-    isWinner = board.some((row) => row.toString() === oRow.toString());
+  // Checking for horizontal 3-in-row
+  for (const row of board) {
+    if (isWinner) break;
+    isWinner = row.every((el) => el === currMarker);
+  }
+  // Checking for vertical 3-in-row
+  for (let z = 0; z < board.length; z++) {
+    if (isWinner) break;
+    isWinner = board.every((row) => row[z] === currMarker);
+  }
+  // Checking for diagonal 3-in-row
+  for (let z = 0; z < board.length; z++) {
+    if (isWinner) break;
+    isWinner = board.every((row, idx) => row[idx] === currMarker);
+    if (isWinner) break;
+    isWinner = board.every(
+      (row, idx) => row[board.length - (idx + 1)] === currMarker
+    );
   }
   if (isWinner) {
     game.flag = false;
     labelGame.textContent = `Marker ${currMarker} has Won!`;
     return;
   }
+  // Checking if board is full therefore a tie
   const isFull = board.every((row) => row.every((el) => el));
   if (isFull) {
     game.flag = false;
@@ -72,6 +82,7 @@ function checkWinner() {
     return;
   }
   currMarker = currMarker === "X" ? "O" : "X";
+  labelGame.textContent = `Current marker is: ${currMarker}`;
 }
 
 ////////////////////////////////////////////////
@@ -81,11 +92,11 @@ function checkWinner() {
 btnsBoard.forEach((btn) =>
   btn.addEventListener("click", function () {
     if (game.flag && !btn.classList.contains("board__btn--active")) {
-      const [row, col] = [btn.dataset.row, btn.dataset.col];
-      game.updateBoard(row, col);
       btn.innerHTML = currMarker;
       btn.classList.add("board__btn--active");
-      return checkWinner();
+      const [row, col] = [btn.dataset.row, btn.dataset.col];
+      game.updateBoard(row, col);
+      isGameWinner();
     }
   })
 );
