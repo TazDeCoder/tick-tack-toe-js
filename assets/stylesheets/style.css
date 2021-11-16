@@ -14,7 +14,8 @@ html {
   font-size: 16px;
 }
 body {
-  background-color: #d1ffa8;
+  font-family: "Exo 2", sans-serif;
+  background-color: #a175de;
 }
 nav,
 button,
@@ -38,6 +39,16 @@ iframe {
 ================================
 */
 
+/* General elements */
+.btn {
+  font-family: inherit;
+  cursor: pointer;
+}
+/* General elements */
+.hidden {
+  visibility: hidden;
+}
+
 /*
  * Main
  *
@@ -53,21 +64,36 @@ iframe {
   width: 100%;
   height: 4rem;
   padding: 5px;
-  font-size: 3.6rem;
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: #eefc10;
 }
 .game {
-  width: 90%;
-  margin: 1rem auto;
+  width: 100%;
 }
 .game__label {
-  height: 1rem;
-  margin: 1rem 0;
-  font-size: 1.4rem;
+  display: block;
+  max-width: 40rem;
+  padding: 1rem;
+  margin: 1rem auto;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #6a9034;
+  text-align: center;
+  cursor: default;
+  background-color: azure;
+  border-radius: 12px;
 }
 .game__btn {
   display: block;
+  padding: 1rem;
   margin: 1rem auto;
+  font-size: 1.2rem;
+  background-color: azure;
   border: 1px solid black;
+}
+.game__btn:hover {
+  background-color: gainsboro;
 }
 
 /*
@@ -79,30 +105,88 @@ iframe {
 
 .board {
   display: grid;
-  grid-template-columns: repeat(3, minmax(8rem, 16rem));
-  grid-template-rows: repeat(3, minmax(8rem, 16rem));
+  grid-template-columns: repeat(3, minmax(6rem, 14rem));
+  grid-template-rows: repeat(3, minmax(6rem, 1fr));
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 90%;
 }
 .board__btn {
-  width: 100%;
   height: 100%;
   padding: 50% 0;
-  font-size: 2.7rem;
+  font-size: 3.7rem;
   text-align: center;
-  cursor: pointer;
   background: none;
   border-style: solid;
-  border-color: red;
+  border-color: ghostwhite;
 }
-/* Draw horizontal lines */
-.board__btn:nth-child(n + 4) {
-  /* For every child after the 3rd one */
-  border-top-width: 5px;
+
+/*
+ * Modal
+ *
+ *
+ *
+ */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
 }
-/* Draw vertical lines */
-.board__btn:nth-child(3n-1) {
-  /* For every 2th child (middle child) */
-  border-left-width: 5px;
-  border-right-width: 5px;
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  max-width: 30rem;
+  width: 80%;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+}
+.btn--close-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 2.8rem;
+  background: none;
+  border: none;
+}
+.modal__container {
+  padding: 1rem;
+}
+
+/*
+ * 
+ * Player
+ *
+ *
+ */
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px;
+  text-align: center;
+}
+.player__name,
+.player__marker {
+  display: inline-block;
+  padding: 5px;
+  margin: 5px;
+}
+.player__label {
+  font-size: 1.4rem;
+}
+.player__marker {
+  width: 30%;
+  padding-left: 12px;
+  font-size: 1.2rem;
 }

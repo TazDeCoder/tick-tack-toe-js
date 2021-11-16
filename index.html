@@ -14,6 +14,10 @@
       type="text/css"
       href="./assets/stylesheets/style.css"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
     <script defer src="./app.js"></script>
     <title>Tic-Tac-Toe</title>
   </head>
@@ -22,19 +26,43 @@
       <h1 class="main__header">Tic-Tac-Toe</h1>
       <section class="game">
         <p class="game__label"></p>
-        <button class="game__btn game__btn--reset">RESET</button>
+        <button class="btn game__btn game__btn--reset">Reset</button>
         <div class="board">
-          <button class="board__btn" data-row="0" data-col="0"></button>
-          <button class="board__btn" data-row="0" data-col="1"></button>
-          <button class="board__btn" data-row="0" data-col="2"></button>
-          <button class="board__btn" data-row="1" data-col="0"></button>
-          <button class="board__btn" data-row="1" data-col="1"></button>
-          <button class="board__btn" data-row="1" data-col="2"></button>
-          <button class="board__btn" data-row="2" data-col="0"></button>
-          <button class="board__btn" data-row="2" data-col="1"></button>
-          <button class="board__btn" data-row="2" data-col="2"></button>
+          <button class="btn board__btn" data-row="0" data-col="0"></button>
+          <button class="btn board__btn" data-row="0" data-col="1"></button>
+          <button class="btn board__btn" data-row="0" data-col="2"></button>
+          <button class="btn board__btn" data-row="1" data-col="0"></button>
+          <button class="btn board__btn" data-row="1" data-col="1"></button>
+          <button class="btn board__btn" data-row="1" data-col="2"></button>
+          <button class="btn board__btn" data-row="2" data-col="0"></button>
+          <button class="btn board__btn" data-row="2" data-col="1"></button>
+          <button class="btn board__btn" data-row="2" data-col="2"></button>
         </div>
       </section>
     </main>
+    <div class="modal">
+      <button class="btn btn--close-modal">&times;</button>
+      <div class="modal__container">
+        <div class="player player--0">
+          <label class="player__label">Player 1</label>
+          <input class="player__name player__name--0" />
+          <select class="player__marker player__marker--0">
+            <option value="❌">❌</option>
+            <option value="🦀">🦀</option>
+            <option value="🍔">🍔</option>
+          </select>
+        </div>
+        <div class="player player--1">
+          <label class="player__label">Player 2</label>
+          <input class="player__name player__name--1" />
+          <select class="player__marker player__marker--1">
+            <option value="⭕">⭕</option>
+            <option value="🐚">🐚</option>
+            <option value="🍕">🍕</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="overlay"></div>
   </body>
 </html>
