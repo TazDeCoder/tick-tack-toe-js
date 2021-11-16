@@ -1,34 +1,49 @@
 "use strict";
 
 ////////////////////////////////////////////////
-////// Selecting HTML elements
+////// Selecting HTML Elements
 ///////////////////////////////////////////////
 
 // Buttons
 const btnsBoard = document.querySelectorAll(".board__btn");
 const btnReset = document.querySelector(".game__btn--reset");
+const btnCloseModal = document.querySelector(".btn--close-modal");
+// Inputs
+const inputPlayer1Name = document.querySelector(".player__name--0");
+const inputPlayer2Name = document.querySelector(".player__name--1");
+const inputPlayer1Marker = document.querySelector(".player__marker--0");
+const inputPlayer2Marker = document.querySelector(".player__marker--1");
 // Labels
 const labelGame = document.querySelector(".game__label");
+// Parents
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
 
 ////////////////////////////////////////////////
-////// Global variables
+////// Global Variables
 ///////////////////////////////////////////////
 
-let currMarker;
+let currMarker, currPlayer, player1, player2;
 
 const game = {
   flag: true,
+  markers: {
+    player1: "",
+    player2: "",
+  },
   board: [],
   updateBoard(row, col) {
     this.board[row][col] = currMarker;
   },
 };
 
-(() => init())();
+////////////////////////////////////////////////
+////// Game UI Setup
+///////////////////////////////////////////////
 
 function init() {
   // Reset game values
-  currMarker = "X";
+  currMarker = game.markers.player1;
   game.flag = true;
   game.board = [
     ["", "", ""],
@@ -37,14 +52,27 @@ function init() {
   ];
   // Clean-up Ui
   btnsBoard.forEach((btn) => {
-    btn.textContent = "";
+    btn.textContent = "-";
     btn.classList.remove("board__btn--active");
   });
-  labelGame.textContent = `Current marker is: ${currMarker}`;
+  currPlayer = player1;
+  updateGameLbl(`${currPlayer}'s Turn`);
+}
+
+const updateGameLbl = (txt) => (labelGame.textContent = txt);
+
+function loadGame() {
+  player1 = !inputPlayer1Name.value ? "Player 1" : inputPlayer1Name.value;
+  player2 = !inputPlayer2Name.value ? "Player 2" : inputPlayer2Name.value;
+  game.markers.player1 = inputPlayer1Marker.value;
+  game.markers.player2 = inputPlayer2Marker.value;
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+  (() => init())();
 }
 
 ////////////////////////////////////////////////
-////// Game logic
+////// Game Logic
 ///////////////////////////////////////////////
 
 function isGameWinner() {
@@ -71,22 +99,26 @@ function isGameWinner() {
   }
   if (isWinner) {
     game.flag = false;
-    labelGame.textContent = `Marker ${currMarker} has Won!`;
+    updateGameLbl(`${currPlayer} has Won!`);
     return;
   }
   // Checking if board is full therefore a tie
   const isFull = board.every((row) => row.every((el) => el));
   if (isFull) {
     game.flag = false;
-    labelGame.textContent = "It's a Tie";
+    updateGameLbl("It's a Tie");
     return;
   }
-  currMarker = currMarker === "X" ? "O" : "X";
-  labelGame.textContent = `Current marker is: ${currMarker}`;
+  currMarker =
+    currMarker === game.markers.player1
+      ? game.markers.player2
+      : game.markers.player1;
+  currPlayer = currPlayer === player1 ? player2 : player1;
+  updateGameLbl(`${currPlayer}'s Turn`);
 }
 
 ////////////////////////////////////////////////
-////// Event handlers
+////// Event Handlers
 ///////////////////////////////////////////////
 
 btnsBoard.forEach((btn) =>
@@ -102,3 +134,6 @@ btnsBoard.forEach((btn) =>
 );
 
 btnReset.addEventListener("click", init);
+
+btnCloseModal.addEventListener("click", loadGame);
+overlay.addEventListener("click", loadGame);
