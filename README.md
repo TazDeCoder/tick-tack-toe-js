@@ -2,18 +2,22 @@
 
 ## Description
 
+Fun game of Tic-Tac-Toe where the first to get three-in-a-row wins!
+
+Play with a friend and have a blast or play against the CPU for a quick relaxing game.
+
 **Features:**
 
-- **NEW**: Modern User Interface
-- **NEW**: Intuitive Design
-- **NEW**: Custom Markers
+- Modern User Interface
+- Intuitive Design
+- Custom Markers
+- **NEW**: Play Against CPU
 
 **TASK-LIST:**
 
-- [x] Modern User Interface
-- [x] Intuitive Design
-- [x] Custom Markers
-- [ ] Play Against CPU
+- [x] Play Against CPU
+
+**_None at the moment, but feel free to suggest any :)_**
 
 ## Installation
 
