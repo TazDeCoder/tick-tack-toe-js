@@ -1,5 +1,10 @@
 # Tic-Tac-Toe
 
+## Screenshots
+
+![screenshots-0](/assets/images/screenshots-0.png)
+![screenshots-1](/assets/images/screenshots-1.png)
+
 ## Description
 
 Fun game of Tic-Tac-Toe where the first to get three-in-a-row wins!
@@ -11,11 +16,9 @@ Play with a friend and have a blast or play against the CPU for a quick relaxing
 - Modern User Interface
 - Intuitive Design
 - Custom Markers
-- **NEW**: Play Against CPU
+- Play Against CPU
 
 **TASK-LIST:**
-
-- [x] Play Against CPU
 
 **_None at the moment, but feel free to suggest any :)_**
 
@@ -25,7 +28,7 @@ To use this project, first clone the repo on your device using the command below
 
 `git init`
 
-`https://github.com/tarwat-uddin/roshambo-js.git`
+`https://github.com/tarwat-uddin/tic-tac-toe-js.git`
 
 ## License
 
