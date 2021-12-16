@@ -23,13 +23,12 @@ a {
   min-width: 48px;
   min-height: 48px;
 }
-img,
-embed,
-object,
-video,
+/* prettier-ignore */
+img, embed,
+object, video,
 iframe {
-  max-width: 100%;
-  height: auto;
+   max-width: 100%;
+   height: auto;
 }
 
 /*
@@ -40,27 +39,42 @@ iframe {
 */
 
 /* General elements */
+
 .btn {
   font-family: inherit;
   cursor: pointer;
 }
-/* General elements */
+
+/* Class modifiers */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+}
 .hidden {
   visibility: hidden;
 }
 
-/*
- * Main
+/* 
  *
+ * Head
  *
  *
  */
 
-.main {
+.head {
   width: 100%;
-  padding: 12px;
 }
-.main__header {
+.head__label {
+  margin: 1rem;
+  text-align: center;
+}
+.head__label--title {
   width: 100%;
   height: 4rem;
   padding: 5px;
@@ -68,10 +82,47 @@ iframe {
   font-weight: 500;
   color: #eefc10;
 }
-.game {
+
+/* 
+ *
+ * Main
+ *
+ *
+ */
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+.main__content {
+  padding: 12px;
+}
+
+/* 
+ *
+ * Main
+ *
+ * * * Content
+ *
+ *
+ */
+
+.main .content__container {
   width: 100%;
 }
-.game__label {
+
+/* 
+ *
+ * Main
+ *
+ * * * Content
+ *
+ * * * * * Container
+ *
+ *
+ */
+
+.main .container__label {
   display: block;
   max-width: 40rem;
   padding: 1rem;
@@ -84,7 +135,7 @@ iframe {
   background-color: azure;
   border-radius: 12px;
 }
-.game__btn {
+.main .container__btn {
   display: block;
   padding: 1rem;
   margin: 1rem auto;
@@ -92,18 +143,10 @@ iframe {
   background-color: azure;
   border: 1px solid black;
 }
-.game__btn:hover {
+.main .container__btn:hover {
   background-color: gainsboro;
 }
-
-/*
- *
- * Board
- *
- *
- */
-
-.board {
+.main .container__item--board {
   display: grid;
   grid-template-columns: repeat(3, minmax(6rem, 14rem));
   grid-template-rows: repeat(3, minmax(6rem, 1fr));
@@ -112,7 +155,21 @@ iframe {
   width: 100%;
   height: 90%;
 }
-.board__btn {
+
+/* 
+ *
+ * Main
+ *
+ * * * Content
+ *
+ * * * * * Container
+ *
+ * * * * * * * Item
+ *
+ *
+ */
+
+.main .item__btn {
   height: 100%;
   padding: 50% 0;
   font-size: 3.7rem;
@@ -122,22 +179,13 @@ iframe {
   border-color: ghostwhite;
 }
 
-/*
- * Modal
+/* 
  *
+ * Modal
  *
  *
  */
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(5px);
-}
 .modal {
   position: fixed;
   top: 50%;
@@ -150,7 +198,7 @@ iframe {
   border-radius: 12px;
   transform: translate(-50%, -50%);
 }
-.btn--close-modal {
+.modal__btn--close {
   position: absolute;
   top: 0;
   right: 0;
@@ -162,30 +210,44 @@ iframe {
   padding: 1rem;
 }
 
-/*
- * 
- * Player
+/* 
+ *
+ * Modal
+ *
+ * * * Container
  *
  *
  */
 
-.player {
+.modal__container .container__item {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 12px;
   text-align: center;
 }
-.player__name,
-.player__marker {
+
+/* 
+ *
+ * Modal
+ *
+ * * * Container
+ *
+ * * * * * Item
+ *
+ *
+ */
+
+.modal .item__name,
+.modal .item__marker {
   display: inline-block;
   padding: 5px;
   margin: 5px;
 }
-.player__label {
+.modal .item__label {
   font-size: 1.4rem;
 }
-.player__marker {
+.modal .item__marker {
   width: 30%;
   padding-left: 12px;
   font-size: 1.2rem;
