@@ -4,21 +4,21 @@
 ////// Selecting HTML Elements
 ///////////////////////////////////////////////
 
-// Buttons
-const btnsBoard = document.querySelectorAll(".board__btn");
-const btnReset = document.querySelector(".game__btn--reset");
-const btnCloseModal = document.querySelector(".btn--close-modal");
-// Inputs
-const inputPlayer1Name = document.querySelector(".player__name--0");
-const inputPlayer2Name = document.querySelector(".player__name--1");
-const inputPlayer1Marker = document.querySelector(".player__marker--0");
-const inputPlayer2Marker = document.querySelector(".player__marker--1");
-const inputComputer = document.querySelector(".modal__input--computer");
-// Labels
-const labelGame = document.querySelector(".game__label");
 // Parents
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
+// Buttons
+const btnsBoard = document.querySelectorAll(".item__btn");
+const btnReset = document.querySelector(".container__btn--reset");
+const btnCloseModal = document.querySelector(".modal__btn--close");
+// Inputs
+const inputPlayer1Name = document.querySelector(".item__name--0");
+const inputPlayer2Name = document.querySelector(".item__name--1");
+const inputPlayer1Marker = document.querySelector(".item__marker--0");
+const inputPlayer2Marker = document.querySelector(".item__marker--1");
+const inputComputer = document.querySelector(".container__input--computer");
+// Labels
+const labelGame = document.querySelector(".container__label--display");
 
 ////////////////////////////////////////////////
 ////// Global Variables
