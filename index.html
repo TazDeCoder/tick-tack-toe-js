@@ -22,47 +22,56 @@
     <title>Tic-Tac-Toe</title>
   </head>
   <body>
+    <header class="head">
+      <h1 class="head__label head__label--title">Tic-Tac-Toe</h1>
+    </header>
     <main class="main">
-      <h1 class="main__header">Tic-Tac-Toe</h1>
-      <section class="game">
-        <p class="game__label"></p>
-        <button class="btn game__btn game__btn--reset">Reset</button>
-        <div class="board">
-          <button class="btn board__btn" data-row="0" data-col="0"></button>
-          <button class="btn board__btn" data-row="0" data-col="1"></button>
-          <button class="btn board__btn" data-row="0" data-col="2"></button>
-          <button class="btn board__btn" data-row="1" data-col="0"></button>
-          <button class="btn board__btn" data-row="1" data-col="1"></button>
-          <button class="btn board__btn" data-row="1" data-col="2"></button>
-          <button class="btn board__btn" data-row="2" data-col="0"></button>
-          <button class="btn board__btn" data-row="2" data-col="1"></button>
-          <button class="btn board__btn" data-row="2" data-col="2"></button>
+      <div class="main__content content">
+        <div class="content__container content__container--game container">
+          <p class="container__label container__label--display"></p>
+          <button class="container__btn container__btn--reset btn">
+            Reset
+          </button>
+          <div class="container__item container__item--board item">
+            <button class="item__btn btn" data-row="0" data-col="0"></button>
+            <button class="item__btn btn" data-row="0" data-col="1"></button>
+            <button class="item__btn btn" data-row="0" data-col="2"></button>
+            <button class="item__btn btn" data-row="1" data-col="0"></button>
+            <button class="item__btn btn" data-row="1" data-col="1"></button>
+            <button class="item__btn btn" data-row="1" data-col="2"></button>
+            <button class="item__btn btn" data-row="2" data-col="0"></button>
+            <button class="item__btn btn" data-row="2" data-col="1"></button>
+            <button class="item__btn btn" data-row="2" data-col="2"></button>
+          </div>
         </div>
-      </section>
+      </div>
     </main>
     <div class="modal">
-      <button class="btn btn--close-modal">&times;</button>
-      <div class="modal__container">
-        <div class="player player--0">
-          <label class="player__label">Player 1</label>
-          <input class="player__name player__name--0" />
-          <select class="player__marker player__marker--0">
+      <button class="modal__btn--close btn">&times;</button>
+      <div class="modal__container container">
+        <div class="container__item contaier__item--0">
+          <label class="item__label">Player 1</label>
+          <input class="item__name item__name--0" />
+          <select class="item__marker item__marker--0">
             <option value="❌">❌</option>
             <option value="🦀">🦀</option>
             <option value="🍔">🍔</option>
           </select>
         </div>
-        <div class="player player--1">
-          <label class="player__label">Player 2</label>
-          <input class="player__name player__name--1" />
-          <select class="player__marker player__marker--1">
+        <div class="container__item contaier__item--1">
+          <label class="item__label">Player 2</label>
+          <input class="item__name item__name--1" />
+          <select class="item__marker item__marker--1">
             <option value="⭕">⭕</option>
             <option value="🐚">🐚</option>
             <option value="🍕">🍕</option>
           </select>
         </div>
-        <label class="modal__label">CPU</label>
-        <input class="modal__input modal__input--computer" type="checkbox" />
+        <label class="container__label">CPU</label>
+        <input
+          class="container__input container__input--computer"
+          type="checkbox"
+        />
       </div>
     </div>
     <div class="overlay"></div>
