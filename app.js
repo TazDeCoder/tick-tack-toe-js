@@ -70,15 +70,15 @@ class App {
 
   _init() {
     // Reset game values
-    this.#currPlayer = this.#names.player1;
-    this.#currMarker = this.#markers.player1;
-    this.#flag = true;
     this.#board = [
       ["", "", ""],
       ["", "", ""],
       ["", "", ""],
     ];
-    // Clean-up Ui
+    this.#currPlayer = this.#names.player1;
+    this.#currMarker = this.#markers.player1;
+    this.#flag = true;
+    // Clean-up ui
     btnsBoard.forEach((btn) => {
       btn.textContent = "-";
       btn.classList.remove("board__btn--active");
@@ -124,57 +124,58 @@ class App {
       availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
     btnsBoard.forEach(markPosition.bind(this));
     this.#board[row][col] = this.#currMarker;
-    return this._isGameWinner.bind(this);
-  }
-
-  _findThreeInRow() {
-    let found;
-    const board = Object.values(this.#board);
-    // Checking for horizontal 3-in-row
-    for (const row of board) {
-      if (found) break;
-      found = row.every((el) => el === this.#currMarker);
-    }
-    // Checking for vertical 3-in-row
-    for (let z = 0; z < board.length; z++) {
-      if (found) break;
-      found = board.every((row) => row[z] === this.#currMarker);
-    }
-    // Checking for diagonal 3-in-row
-    for (let z = 0; z < board.length; z++) {
-      if (found) break;
-      found = board.every((row, idx) => row[idx] === this.#currMarker);
-    }
-    for (let z = 0; z < board.length; z++) {
-      if (found) break;
-      found = board.every(
-        (row, idx) => row[board.length - (idx + 1)] === this.#currMarker
-      );
-    }
-
-    return found;
+    this._isGameWinner.bind(this);
   }
 
   _isGameWinner() {
-    const isWinner = this._findThreeInRow.call(this);
     const board = Object.values(this.#board);
+    const match = this._matchThreeInRow(board, this.#currMarker);
     const isFull = board.every((row) => row.every((el) => el));
-    if (isWinner || isFull) {
-      const str = isWinner ? `${this.#currPlayer} has Won!` : "It's a Tie 🤝!";
+    if (match || isFull) {
+      const str = match ? `${this.#currPlayer} has Won!` : "It's a Tie 🤝!";
       this._updateGameLbl(str);
       this.#flag = false;
       return true;
     }
+    // Update current marker
     this.#currMarker =
       this.#currMarker === this.#markers.player1
         ? this.#markers.player2
         : this.#markers.player1;
+    // Update current player
     this.#currPlayer =
       this.#currPlayer === this.#names.player1
         ? this.#names.player2
         : this.#names.player1;
     this._updateGameLbl(`${this.#currPlayer}'s Turn`);
     return false;
+  }
+
+  _matchThreeInRow(board, marker) {
+    let found;
+    // Checking for horizontal 3-in-row
+    for (const row of board) {
+      if (found) break;
+      found = row.every((el) => el === marker);
+    }
+    // Checking for vertical 3-in-row
+    for (let z = 0; z < board.length; z++) {
+      if (found) break;
+      found = board.every((row) => row[z] === marker);
+    }
+    // Checking for diagonal 3-in-row
+    for (let z = 0; z < board.length; z++) {
+      if (found) break;
+      found = board.every((row, idx) => row[idx] === marker);
+    }
+    for (let z = 0; z < board.length; z++) {
+      if (found) break;
+      found = board.every(
+        (row, idx) => row[board.length - (idx + 1)] === marker
+      );
+    }
+
+    return found;
   }
 }
 
