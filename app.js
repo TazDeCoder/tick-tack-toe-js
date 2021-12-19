@@ -5,6 +5,7 @@
 ///////////////////////////////////////////////
 
 // Parents
+const board = document.querySelector(".container__item--board");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 // Buttons
@@ -43,133 +44,147 @@ const game = {
 };
 
 ////////////////////////////////////////////////
-////// Game UI Setup
+////// App Architecture
 ///////////////////////////////////////////////
 
-function init() {
-  // Reset game values
-  currPlayer = game.names.player1;
-  currMarker = game.markers.player1;
-  game.flag = true;
-  game.board = [
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""],
-  ];
-  // Clean-up Ui
-  btnsBoard.forEach((btn) => {
-    btn.textContent = "-";
-    btn.classList.remove("board__btn--active");
-  });
-  updateGameLbl(`${currPlayer}'s Turn`);
-}
-
-const updateGameLbl = (txt) => (labelGame.textContent = txt);
-
-function loadGame() {
-  game.names.player1 = !inputPlayer1Name.value
-    ? "Player 1"
-    : inputPlayer1Name.value;
-  game.names.player2 = !inputPlayer2Name.value
-    ? "Player 2"
-    : inputPlayer2Name.value;
-  game.markers.player1 = inputPlayer1Marker.value;
-  game.markers.player2 = inputPlayer2Marker.value;
-  isComputer = inputComputer.checked ? true : false;
-  modal.classList.add("hidden");
-  overlay.classList.add("hidden");
-  (() => init())();
-}
-
-////////////////////////////////////////////////
-////// Game Logic
-///////////////////////////////////////////////
-
-function computerTurn() {
-  let availableSpaces = [];
-  const board = Object.values(game.board);
-  for (const [rowPos, row] of board.entries())
-    row.map((col, colPos) =>
-      col === "" ? availableSpaces.push([rowPos, colPos]) : null
-    );
-  const [row, col] =
-    availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
-  btnsBoard.forEach(function (btn) {
-    if (
-      [btn.dataset.row, btn.dataset.col].toString() === [row, col].toString()
-    ) {
-      btn.innerHTML = currMarker;
-      btn.classList.add("board__btn--active");
-    }
-  });
-  game.updateBoard(row, col);
-  return isGameWinner();
-}
-
-function findThreeInRow() {
-  let found;
-  const board = Object.values(game.board);
-  // Checking for horizontal 3-in-row
-  for (const row of board) {
-    if (found) break;
-    found = row.every((el) => el === currMarker);
+class App {
+  constructor() {
+    // Add event handlers
+    btnReset.addEventListener("click", this._init);
+    btnCloseModal.addEventListener("click", this._loadGame.bind(this));
+    overlay.addEventListener("click", this._loadGame.bind(this));
+    board.addEventListener("click", this._handleClicks.bind(this));
   }
-  // Checking for vertical 3-in-row
-  for (let z = 0; z < board.length; z++) {
-    if (found) break;
-    found = board.every((row) => row[z] === currMarker);
-  }
-  // Checking for diagonal 3-in-row
-  for (let z = 0; z < board.length; z++) {
-    if (found) break;
-    found = board.every((row, idx) => row[idx] === currMarker);
-  }
-  for (let z = 0; z < board.length; z++) {
-    if (found) break;
-    found = board.every(
-      (row, idx) => row[board.length - (idx + 1)] === currMarker
-    );
-  }
-  return found;
-}
 
-function isGameWinner() {
-  const isWinner = findThreeInRow();
-  const board = Object.values(game.board);
-  const isFull = board.every((row) => row.every((el) => el));
-  if (isWinner || isFull) {
-    const str = isWinner ? `${currPlayer} has Won!` : "It's a Tie 🤝!";
-    updateGameLbl(str);
-    game.flag = false;
-    return true;
+  /////////////////////////////////////
+  //////////// Helper functions
+
+  _updateGameLbl(txt) {
+    labelGame.textContent = txt;
   }
-  currMarker =
-    currMarker === game.markers.player1
-      ? game.markers.player2
-      : game.markers.player1;
-  currPlayer =
-    currPlayer === game.names.player1 ? game.names.player2 : game.names.player1;
-  updateGameLbl(`${currPlayer}'s Turn`);
-  return false;
-}
 
-////////////////////////////////////////////////
-////// Event Handlers
-///////////////////////////////////////////////
+  /////////////////////////////////////
+  //////////// Handler functions
 
-btnsBoard.forEach((btn) =>
-  btn.addEventListener("click", function () {
-    if (game.flag && !btn.classList.contains("board__btn--active")) {
-      btn.innerHTML = currMarker;
-      btn.classList.add("board__btn--active");
-      const [row, col] = [btn.dataset.row, btn.dataset.col];
+  _handleClicks(e) {
+    const clicked = e.target;
+    if (!clicked) return;
+    if (game.flag && clicked.classList.contains("item__btn")) {
+      clicked.innerHTML = currMarker;
+      clicked.classList.add("board__btn--active");
+      const [row, col] = [clicked.dataset.row, clicked.dataset.col];
       game.updateBoard(row, col);
-      if (isGameWinner()) return;
-      if (isComputer) return setTimeout(computerTurn, 400);
+      if (this._isGameWinner.bind(this)) return;
+      if (isComputer) return setTimeout(this._computerTurn.bind(this), 400);
     }
-  })
-);
+  }
 
-btnReset.addEventListener("click", init);
-btnCloseModal.addEventListener("click", loadGame);
-overlay.addEventListener("click", loadGame);
+  _init() {
+    // Reset game values
+    currPlayer = game.names.player1;
+    currMarker = game.markers.player1;
+    game.flag = true;
+    game.board = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
+    // Clean-up Ui
+    btnsBoard.forEach((btn) => {
+      btn.textContent = "-";
+      btn.classList.remove("board__btn--active");
+    });
+    updateGameLbl(`${currPlayer}'s Turn`);
+  }
+
+  _loadGame() {
+    game.names.player1 = !inputPlayer1Name.value
+      ? "Player 1"
+      : inputPlayer1Name.value;
+    game.names.player2 = !inputPlayer2Name.value
+      ? "Player 2"
+      : inputPlayer2Name.value;
+    game.markers.player1 = inputPlayer1Marker.value;
+    game.markers.player2 = inputPlayer2Marker.value;
+    isComputer = inputComputer.checked ? true : false;
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+    this._init();
+  }
+
+  /////////////////////////////////////
+  //////////// Game logic
+
+  _computerTurn() {
+    let availableSpaces = [];
+    const board = Object.values(game.board);
+    for (const [rowPos, row] of board.entries())
+      row.map((col, colPos) =>
+        col === "" ? availableSpaces.push([rowPos, colPos]) : null
+      );
+    const [row, col] =
+      availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
+    btnsBoard.forEach(function (btn) {
+      if (
+        [btn.dataset.row, btn.dataset.col].toString() === [row, col].toString()
+      ) {
+        btn.innerHTML = currMarker;
+        btn.classList.add("board__btn--active");
+      }
+    });
+    game.updateBoard(row, col);
+    return this._isGameWinner.bind(this);
+  }
+
+  _findThreeInRow() {
+    let found;
+    const board = Object.values(game.board);
+    // Checking for horizontal 3-in-row
+    for (const row of board) {
+      if (found) break;
+      found = row.every((el) => el === currMarker);
+    }
+    // Checking for vertical 3-in-row
+    for (let z = 0; z < board.length; z++) {
+      if (found) break;
+      found = board.every((row) => row[z] === currMarker);
+    }
+    // Checking for diagonal 3-in-row
+    for (let z = 0; z < board.length; z++) {
+      if (found) break;
+      found = board.every((row, idx) => row[idx] === currMarker);
+    }
+    for (let z = 0; z < board.length; z++) {
+      if (found) break;
+      found = board.every(
+        (row, idx) => row[board.length - (idx + 1)] === currMarker
+      );
+    }
+
+    return found;
+  }
+
+  _isGameWinner() {
+    const isWinner = this._findThreeInRow();
+    const board = Object.values(game.board);
+    const isFull = board.every((row) => row.every((el) => el));
+    if (isWinner || isFull) {
+      const str = isWinner ? `${currPlayer} has Won!` : "It's a Tie 🤝!";
+      updateGameLbl(str);
+      game.flag = false;
+      return true;
+    }
+    currMarker =
+      currMarker === game.markers.player1
+        ? game.markers.player2
+        : game.markers.player1;
+    currPlayer =
+      currPlayer === game.names.player1
+        ? game.names.player2
+        : game.names.player1;
+    updateGameLbl(`${currPlayer}'s Turn`);
+    return false;
+  }
+}
+
+const app = new App();
