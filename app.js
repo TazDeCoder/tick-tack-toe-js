@@ -124,7 +124,7 @@ class App {
       availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
     btnsBoard.forEach(markPosition.bind(this));
     this.#board[row][col] = this.#currMarker;
-    this._isGameWinner.bind(this);
+    this._isGameWinner.call(this);
   }
 
   _isGameWinner() {
