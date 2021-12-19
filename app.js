@@ -22,35 +22,23 @@ const inputComputer = document.querySelector(".container__input--computer");
 const labelGame = document.querySelector(".container__label--display");
 
 ////////////////////////////////////////////////
-////// Global Variables
-///////////////////////////////////////////////
-
-let currMarker, currPlayer, isComputer;
-
-const game = {
-  flag: true,
-  names: {
-    player1: "",
-    player2: "",
-  },
-  markers: {
-    player1: "",
-    player2: "",
-  },
-  board: [],
-  updateBoard(row, col) {
-    this.board[row][col] = currMarker;
-  },
-};
-
-////////////////////////////////////////////////
 ////// App Architecture
 ///////////////////////////////////////////////
 
 class App {
+  // Game config
+  #names = {};
+  #markers = {};
+  #isComputer;
+  // Global variables
+  #board = [];
+  #currPlayer;
+  #currMarker;
+  #flag;
+
   constructor() {
     // Add event handlers
-    btnReset.addEventListener("click", this._init);
+    btnReset.addEventListener("click", this._init.bind(this));
     btnCloseModal.addEventListener("click", this._loadGame.bind(this));
     overlay.addEventListener("click", this._loadGame.bind(this));
     board.addEventListener("click", this._handleClicks.bind(this));
@@ -69,22 +57,23 @@ class App {
   _handleClicks(e) {
     const clicked = e.target;
     if (!clicked) return;
-    if (game.flag && clicked.classList.contains("item__btn")) {
-      clicked.innerHTML = currMarker;
+    if (this.#flag && clicked.classList.contains("item__btn")) {
+      clicked.innerHTML = this.#currMarker;
       clicked.classList.add("board__btn--active");
       const [row, col] = [clicked.dataset.row, clicked.dataset.col];
-      game.updateBoard(row, col);
-      if (this._isGameWinner.bind(this)) return;
-      if (isComputer) return setTimeout(this._computerTurn.bind(this), 400);
+      this.#board[row][col] = this.#currMarker;
+      if (this._isGameWinner.call(this)) return;
+      if (this.#isComputer)
+        return setTimeout(this._computerTurn.bind(this), 400);
     }
   }
 
   _init() {
     // Reset game values
-    currPlayer = game.names.player1;
-    currMarker = game.markers.player1;
-    game.flag = true;
-    game.board = [
+    this.#currPlayer = this.#names.player1;
+    this.#currMarker = this.#markers.player1;
+    this.#flag = true;
+    this.#board = [
       ["", "", ""],
       ["", "", ""],
       ["", "", ""],
@@ -94,19 +83,19 @@ class App {
       btn.textContent = "-";
       btn.classList.remove("board__btn--active");
     });
-    updateGameLbl(`${currPlayer}'s Turn`);
+    this._updateGameLbl(`${this.#currPlayer}'s Turn`);
   }
 
   _loadGame() {
-    game.names.player1 = !inputPlayer1Name.value
+    this.#names.player1 = !inputPlayer1Name.value
       ? "Player 1"
       : inputPlayer1Name.value;
-    game.names.player2 = !inputPlayer2Name.value
+    this.#names.player2 = !inputPlayer2Name.value
       ? "Player 2"
       : inputPlayer2Name.value;
-    game.markers.player1 = inputPlayer1Marker.value;
-    game.markers.player2 = inputPlayer2Marker.value;
-    isComputer = inputComputer.checked ? true : false;
+    this.#markers.player1 = inputPlayer1Marker.value;
+    this.#markers.player2 = inputPlayer2Marker.value;
+    this.#isComputer = inputComputer?.checked;
     modal.classList.add("hidden");
     overlay.classList.add("hidden");
     this._init();
@@ -117,47 +106,49 @@ class App {
 
   _computerTurn() {
     let availableSpaces = [];
-    const board = Object.values(game.board);
+    const markPosition = function (btn) {
+      if (
+        [btn.dataset.row, btn.dataset.col].toString() === [row, col].toString()
+      ) {
+        btn.innerHTML = this.#currMarker;
+        btn.classList.add("board__btn--active");
+      }
+    };
+
+    const board = Object.values(this.#board);
     for (const [rowPos, row] of board.entries())
       row.map((col, colPos) =>
         col === "" ? availableSpaces.push([rowPos, colPos]) : null
       );
     const [row, col] =
       availableSpaces[Math.floor(Math.random() * availableSpaces.length)];
-    btnsBoard.forEach(function (btn) {
-      if (
-        [btn.dataset.row, btn.dataset.col].toString() === [row, col].toString()
-      ) {
-        btn.innerHTML = currMarker;
-        btn.classList.add("board__btn--active");
-      }
-    });
-    game.updateBoard(row, col);
+    btnsBoard.forEach(markPosition.bind(this));
+    this.#board[row][col] = this.#currMarker;
     return this._isGameWinner.bind(this);
   }
 
   _findThreeInRow() {
     let found;
-    const board = Object.values(game.board);
+    const board = Object.values(this.#board);
     // Checking for horizontal 3-in-row
     for (const row of board) {
       if (found) break;
-      found = row.every((el) => el === currMarker);
+      found = row.every((el) => el === this.#currMarker);
     }
     // Checking for vertical 3-in-row
     for (let z = 0; z < board.length; z++) {
       if (found) break;
-      found = board.every((row) => row[z] === currMarker);
+      found = board.every((row) => row[z] === this.#currMarker);
     }
     // Checking for diagonal 3-in-row
     for (let z = 0; z < board.length; z++) {
       if (found) break;
-      found = board.every((row, idx) => row[idx] === currMarker);
+      found = board.every((row, idx) => row[idx] === this.#currMarker);
     }
     for (let z = 0; z < board.length; z++) {
       if (found) break;
       found = board.every(
-        (row, idx) => row[board.length - (idx + 1)] === currMarker
+        (row, idx) => row[board.length - (idx + 1)] === this.#currMarker
       );
     }
 
@@ -165,24 +156,24 @@ class App {
   }
 
   _isGameWinner() {
-    const isWinner = this._findThreeInRow();
-    const board = Object.values(game.board);
+    const isWinner = this._findThreeInRow.call(this);
+    const board = Object.values(this.#board);
     const isFull = board.every((row) => row.every((el) => el));
     if (isWinner || isFull) {
-      const str = isWinner ? `${currPlayer} has Won!` : "It's a Tie 🤝!";
-      updateGameLbl(str);
-      game.flag = false;
+      const str = isWinner ? `${this.#currPlayer} has Won!` : "It's a Tie 🤝!";
+      this._updateGameLbl(str);
+      this.#flag = false;
       return true;
     }
-    currMarker =
-      currMarker === game.markers.player1
-        ? game.markers.player2
-        : game.markers.player1;
-    currPlayer =
-      currPlayer === game.names.player1
-        ? game.names.player2
-        : game.names.player1;
-    updateGameLbl(`${currPlayer}'s Turn`);
+    this.#currMarker =
+      this.#currMarker === this.#markers.player1
+        ? this.#markers.player2
+        : this.#markers.player1;
+    this.#currPlayer =
+      this.#currPlayer === this.#names.player1
+        ? this.#names.player2
+        : this.#names.player1;
+    this._updateGameLbl(`${this.#currPlayer}'s Turn`);
     return false;
   }
 }
