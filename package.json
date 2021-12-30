@@ -1,0 +1,26 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Tic-tac-toe application",
+  "default": "index.html",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarwat-uddin/tic-tac-toe.git"
+  },
+  "author": "Tarwat Uddin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarwat-uddin/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/tarwat-uddin/tic-tac-toe#readme",
+  "devDependencies": {
+    "parcel": "^2.0.1"
+  },
+  "dependencies": {
+    "core-js": "^3.20.1"
+  }
+}
