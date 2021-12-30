@@ -15,7 +15,7 @@
       href="./assets/stylesheets/style.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;600&display=swap"
       rel="stylesheet"
     />
     <script defer src="./app.js"></script>
@@ -25,6 +25,7 @@
     <header class="head">
       <h1 class="head__label head__label--title">Tic-Tac-Toe</h1>
     </header>
+
     <main class="main">
       <div class="main__content content">
         <div class="content__container content__container--game container">
@@ -32,6 +33,7 @@
           <button class="container__btn container__btn--reset btn">
             Reset
           </button>
+
           <div class="container__item container__item--board item">
             <button class="item__btn btn" data-row="0" data-col="0"></button>
             <button class="item__btn btn" data-row="0" data-col="1"></button>
@@ -46,34 +48,39 @@
         </div>
       </div>
     </main>
+
     <div class="modal">
-      <button class="modal__btn--close btn">&times;</button>
+      <button class="modal__btn--close">&times;</button>
       <div class="modal__container container">
         <div class="container__item contaier__item--0">
           <label class="item__label">Player 1</label>
-          <input class="item__name item__name--0" />
+          <input class="item__name item__name--0" placeholder="Enter name" />
           <select class="item__marker item__marker--0">
             <option value="❌">❌</option>
             <option value="🦀">🦀</option>
             <option value="🍔">🍔</option>
           </select>
         </div>
+
         <div class="container__item contaier__item--1">
           <label class="item__label">Player 2</label>
-          <input class="item__name item__name--1" />
+          <input class="item__name item__name--1" placeholder="Enter name" />
           <select class="item__marker item__marker--1">
             <option value="⭕">⭕</option>
             <option value="🐚">🐚</option>
             <option value="🍕">🍕</option>
           </select>
         </div>
+
         <label class="container__label">CPU</label>
         <input
           class="container__input container__input--computer"
           type="checkbox"
+          checked
         />
       </div>
     </div>
+
     <div class="overlay"></div>
   </body>
 </html>
