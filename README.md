@@ -1,4 +1,4 @@
-# Tic-Tac-Toe
+# Tic-Tac-Toe JS
 
 ## Screenshots
 
@@ -8,9 +8,7 @@
 
 ## Description
 
-Fun game of Tic-Tac-Toe where the first to get three-in-a-row wins!
-
-Play with a friend and have a blast or play against the CPU for a quick relaxing game.
+A JavaScript app based on the Odin Project exercise - **'Tic Tac Toe'**
 
 **Features:**
 
@@ -19,9 +17,9 @@ Play with a friend and have a blast or play against the CPU for a quick relaxing
 - Custom Markers
 - Play Against CPU
 
-**TASK-LIST:**
+## What I've Learnt
 
-**_None at the moment, but feel free to suggest any :)_**
++ Advanced array manipulation
 
 ## Installation
 
