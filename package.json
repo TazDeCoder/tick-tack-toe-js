@@ -1,7 +1,7 @@
 {
-  "name": "tic-tac-toe",
+  "name": "tic-tac-toe-js",
   "version": "1.0.0",
-  "description": "Tic-tac-toe application",
+  "description": "tic-tac-toe game",
   "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
@@ -9,18 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tarwat-uddin/tic-tac-toe.git"
+    "url": "git+https://github.com/tarwat-uddin/tic-tac-toe-js.git"
   },
   "author": "Tarwat Uddin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tarwat-uddin/tic-tac-toe/issues"
+    "url": "https://github.com/tarwat-uddin/tic-tac-toe-js/issues"
   },
-  "homepage": "https://github.com/tarwat-uddin/tic-tac-toe#readme",
+  "homepage": "https://github.com/tarwat-uddin/tic-tac-toe-js#readme",
   "devDependencies": {
     "parcel": "^2.0.1"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
     "core-js": "^3.20.1"
   }
 }

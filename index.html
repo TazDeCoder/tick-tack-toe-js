@@ -4,46 +4,73 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./src/stylesheets/reset.css" />
-    <link rel="stylesheet" type="text/css" href="./src/stylesheets/style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./public/stylesheets/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./public/stylesheets/style.css"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;500;600&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="./node_modules/@fortawesome/fontawesome-free/css/brands.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="./public/images/favicon.ico" />
     <script defer type="module" src="./src/app.js"></script>
-    <title>Tic-Tac-Toe</title>
+    <title>Tic-Tac-Toe JS</title>
   </head>
   <body>
     <header class="head">
-      <h1 class="head__label head__label--title">Tic-Tac-Toe</h1>
+      <h1 class="head__label head__label--title">Tic-Tac-Toe JS</h1>
+      <!-- SOCIAL LINKS -->
+      <nav class="head__content--socials">
+        <div class="head__content--socials__item">
+          <a
+            href="https://github.com/tarwat-uddin/tic-tac-toe-js"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="fa-brands fa-github" />
+          </a>
+        </div>
+        <div class="head__content--socials__item">
+          <a href="https://dev.to/tarwatuddin" target="_blank" rel="noopener">
+            <i class="fa-brands fa-dev" />
+          </a>
+        </div>
+      </nav>
     </header>
 
     <main class="main">
-      <div class="main__content content">
-        <div class="content__container content__container--game container">
-          <p class="container__label container__label--display"></p>
-          <button class="container__btn container__btn--reset btn">
-            Reset
-          </button>
-
-          <div class="container__item container__item--board item">
-            <button class="item__btn btn" data-row="0" data-col="0"></button>
-            <button class="item__btn btn" data-row="0" data-col="1"></button>
-            <button class="item__btn btn" data-row="0" data-col="2"></button>
-            <button class="item__btn btn" data-row="1" data-col="0"></button>
-            <button class="item__btn btn" data-row="1" data-col="1"></button>
-            <button class="item__btn btn" data-row="1" data-col="2"></button>
-            <button class="item__btn btn" data-row="2" data-col="0"></button>
-            <button class="item__btn btn" data-row="2" data-col="1"></button>
-            <button class="item__btn btn" data-row="2" data-col="2"></button>
-          </div>
+      <div class="content__container content__container--game">
+        <p class="container__label container__label--display"></p>
+        <button class="btn container__btn container__btn--reset">Reset</button>
+        <!-- BOARD DISPLAY -->
+        <div class="container__item container__item--board">
+          <button class="item__btn btn" data-row="0" data-col="0"></button>
+          <button class="item__btn btn" data-row="0" data-col="1"></button>
+          <button class="item__btn btn" data-row="0" data-col="2"></button>
+          <button class="item__btn btn" data-row="1" data-col="0"></button>
+          <button class="item__btn btn" data-row="1" data-col="1"></button>
+          <button class="item__btn btn" data-row="1" data-col="2"></button>
+          <button class="item__btn btn" data-row="2" data-col="0"></button>
+          <button class="item__btn btn" data-row="2" data-col="1"></button>
+          <button class="item__btn btn" data-row="2" data-col="2"></button>
         </div>
       </div>
     </main>
-
+    <!-- GAME POP-UP -->
     <div class="modal">
       <button class="modal__btn--close">&times;</button>
-      <div class="modal__container container">
+      <div class="modal__container">
+        <!-- MARKER SELECTOR -->
         <div class="container__item contaier__item--0">
           <label class="item__label">Player 1</label>
           <input class="item__name item__name--0" placeholder="Enter name" />
@@ -53,7 +80,6 @@
             <option value="🍔">🍔</option>
           </select>
         </div>
-
         <div class="container__item contaier__item--1">
           <label class="item__label">Player 2</label>
           <input class="item__name item__name--1" placeholder="Enter name" />
@@ -63,7 +89,7 @@
             <option value="🍕">🍕</option>
           </select>
         </div>
-
+        <!-- CONFIG OPTIONS -->
         <label class="container__label">CPU</label>
         <input
           class="container__input container__input--computer"
@@ -72,7 +98,7 @@
         />
       </div>
     </div>
-
-    <div class="overlay"></div>
+    <!-- PAGE OVERLAY -->
+    <div class="overlay" />
   </body>
 </html>
