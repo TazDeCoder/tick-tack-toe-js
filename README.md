@@ -1,14 +1,13 @@
-# Tic-Tac-Toe JS
+# Tick-Tack-Toe JS
 
 ## Screenshots
 
-![screenshots-0](/screenshots/screenshots-0.png)
-![screenshots-1](/screenshots/screenshots-1.png)
-![screenshots-2](/screenshots/screenshots-2.png)
+<img src="./public/images/screenshots/screenshots-1.png" alt="desktop-screenshot" width="65%"></img>
+<img src="./public/images/screenshots/screenshots-2.png" alt="mobile-screenshot" width="30%"></img>
 
 ## Description
 
-A JavaScript app based on the Odin Project exercise - **'Tic Tac Toe'**
+A JavaScript application based on the Odin Project exercise - **'Tic Tac Toe'**
 
 **Features:**
 
@@ -19,7 +18,7 @@ A JavaScript app based on the Odin Project exercise - **'Tic Tac Toe'**
 
 ## What I've Learnt
 
-+ Advanced array manipulation
+- Advanced array manipulation
 
 ## Installation
 
@@ -27,7 +26,7 @@ To use this project, first clone the repo on your device using the command below
 
 `git init`
 
-`https://github.com/tarwat-uddin/tic-tac-toe-js.git`
+`https://github.com/tarwat-uddin/tick-tack-toe-js.git`
 
 ## License
 

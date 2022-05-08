@@ -1,7 +1,7 @@
 {
-  "name": "tic-tac-toe-js",
+  "name": "tick-tack-toe-js",
   "version": "1.0.0",
-  "description": "tic-tac-toe game",
+  "description": "tick-tack-toe game",
   "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tarwat-uddin/tic-tac-toe-js.git"
+    "url": "git+https://github.com/tarwat-uddin/tick-tack-toe-js.git"
   },
   "author": "Tarwat Uddin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tarwat-uddin/tic-tac-toe-js/issues"
+    "url": "https://github.com/tarwat-uddin/tick-tack-toe-js/issues"
   },
-  "homepage": "https://github.com/tarwat-uddin/tic-tac-toe-js#readme",
+  "homepage": "https://github.com/tarwat-uddin/tick-tack-toe-js#readme",
   "devDependencies": {
     "parcel": "^2.0.1"
   },
